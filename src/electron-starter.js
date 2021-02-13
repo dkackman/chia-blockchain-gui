@@ -55,10 +55,6 @@ if (!setupEvents.handleSquirrelEvent()) {
   chiaConfig.loadConfig();
   global.sharedObj = { local_test: local_test };
 
-  const exitPyProc = e => {};
-
-  app.on("will-quit", exitPyProc);
-
   /*************************************************************
    * window management
    *************************************************************/
@@ -250,7 +246,7 @@ if (!setupEvents.handleSquirrelEvent()) {
         buttons: ["No", "Yes"],
         title: "Confirm",
         message:
-          "Are you sure you want to quit? GUI Plotting and farming will stop."
+          "Are you sure you want to quit? GUI plotting and farming will stop."
       });
       if (choice == 0) {
         return;

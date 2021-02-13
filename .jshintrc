@@ -1,3 +1,6 @@
 {
-    "esversion": 8
+    "esversion": 8,
+    "unused": true,
+    "strict": "implied",
+    "node": true
 }
