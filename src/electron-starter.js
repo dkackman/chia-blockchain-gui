@@ -139,54 +139,6 @@ if (!setupEvents.handleSquirrelEvent()) {
     }
     //pyProc.unref();
   };
-
-  const closeDaemon = callback => {
-    const timeout = setTimeout(() => callback(), 20000);
-    const clearTimeoutCallback = err => {
-      clearTimeout(timeout);
-      callback(err);
-    };
-
-    try {
-      const request_id = crypto.randomBytes(32).toString("hex");
-      const key_path = key_path;
-      const cert_path = cert_path;
-      var options = {
-        cert: fs.readFileSync(cert_path),
-        key: fs.readFileSync(key_path),
-        rejectUnauthorized: false
-      };
-      ws = new WebSocket(global.daemon_rpc_ws, {
-        perMessageDeflate: false, options
-      });
-      ws.on("open", function open() {
-        console.log("Opened websocket with", global.daemon_rpc_ws);
-        const msg = {
-          command: "exit",
-          ack: false,
-          origin: "wallet_ui",
-          destination: "daemon",
-          request_id
-        };
-        ws.send(JSON.stringify(msg));
-      });
-      ws.on("message", function incoming(message) {
-        message = JSON.parse(message);
-        if (message["ack"] === true && message["request_id"] === request_id) {
-          clearTimeoutCallback();
-        }
-      });
-      ws.on("error", err => {
-        if (err.errno === "ECONNREFUSED") {
-          clearTimeoutCallback();
-        } else {
-          clearTimeoutCallback(err);
-        }
-      });
-    } catch (e) {
-      clearTimeoutCallback(e);
-    }
-  };
   
   const ensureSingleInstance = () => {
     const gotTheLock = app.requestSingleInstanceLock();
