@@ -3,7 +3,6 @@ const setupEvents = require("./setupEvents");
 
 if (!setupEvents.handleSquirrelEvent()) {
   // squirrel event handled and app will exit in 1000ms, so don't do anything else
-  const { promisify } = require("util");
   const {
     app,
     dialog,
@@ -14,14 +13,11 @@ if (!setupEvents.handleSquirrelEvent()) {
   } = require("electron");
   const openAboutWindow = require("about-window").default;
   const path = require("path");
-  const config = require('./config/config');
   const dev_config = require("./dev_config");
-  const WebSocket = require("ws");
   const chiaConfig = require("./util/config");
-  const local_test = config.local_test;
-  var url = require("url");
+  const local_test = require('./config/config').local_test;
+  const url = require("url");
   const os = require("os");
-  const crypto = require("crypto");
 
   const ensureSingleInstance = () => {
     const gotTheLock = app.requestSingleInstanceLock();
@@ -44,7 +40,6 @@ if (!setupEvents.handleSquirrelEvent()) {
   /*************************************************************
    * py process
    *************************************************************/
-
   const PY_MAC_DIST_FOLDER = "../../app.asar.unpacked/daemon";
   const PY_WIN_DIST_FOLDER = "../../app.asar.unpacked/daemon";
   const PY_DIST_FILE = "daemon";
@@ -52,7 +47,6 @@ if (!setupEvents.handleSquirrelEvent()) {
   const PY_MODULE = "server"; // without .py suffix
 
   let pyProc = null;
-  let ws = null;
   let have_cert = null;
   
   ensureSingleInstance();
@@ -68,7 +62,6 @@ if (!setupEvents.handleSquirrelEvent()) {
   /*************************************************************
    * window management
    *************************************************************/
-
   let mainWindow = null;
   let decidedToClose = false;
 
@@ -142,7 +135,7 @@ if (!setupEvents.handleSquirrelEvent()) {
         console.log("Running python executable: ");
         const Process = require("child_process").spawn;
         pyProc = new Process(script, [], processOptions);
-      } catch {
+      } catch (e) {
         console.log("Running python executable: Error: ");
         console.log("Script " + script);
       }
@@ -161,17 +154,17 @@ if (!setupEvents.handleSquirrelEvent()) {
           process.stdout.write("No cert\n");
           // listen for ssl path message
           try {
-            let str_arr = data.toString().split("\n")
+            let str_arr = data.toString().split("\n");
             for (var i = 0; i < str_arr.length; i++) {
-              let str = str_arr[i]
+              let str = str_arr[i];
               try {
                 let json = JSON.parse(str);
-                global.cert_path = json["cert"]
-                global.key_path = json["key"]
+                global.cert_path = json["cert"]; //jshint ignore:line
+                global.key_path = json["key"]; //jshint ignore:line
                 if (cert_path && key_path) {
-                  have_cert = true
+                  have_cert = true;
                   process.stdout.write("Have cert\n");
-                  return
+                  return;
                 }
               } catch (e) {
               }
@@ -336,7 +329,7 @@ if (!setupEvents.handleSquirrelEvent()) {
                 label: "Developer Tools",
                 accelerator:
                   process.platform === "darwin"
-                    ? "Alt+Command+I"
+                    ? "Alt+Command+I" //jshint ignore:line
                     : "Ctrl+Shift+I",
                 click: () => mainWindow.toggleDevTools()
               }
@@ -556,7 +549,7 @@ if (!setupEvents.handleSquirrelEvent()) {
     }
 
     return template;
-  }
+  };
 
   /**
    * Open the given external protocol URL in the desktop’s default manner.
@@ -564,5 +557,5 @@ if (!setupEvents.handleSquirrelEvent()) {
   const openExternal= (url) => {
     // console.log(`openExternal: ${url}`)
     shell.openExternal(url);
-  }
+  };
 }
