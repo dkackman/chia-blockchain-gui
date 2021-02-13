@@ -9,33 +9,16 @@ export const fullNodeMessage = (message) => ({
   },
 });
 
-export function updateLatestSubBlocks() {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const height =
-      state.full_node_state.blockchain_state?.peak?.reward_chain_sub_block
-        ?.sub_block_height;
-    if (height) {
-      const subBlocks = await dispatch(getSubBlockRecords(height));
-
-      dispatch({
-        type: 'FULL_NODE_SET_LATEST_SUB_BLOCKS',
-        subBlocks,
-      });
-    }
-  };
-}
-
-export function getSubBlockRecords(end, count = 10) {
+export function getBlockRecords(end, count = 10) {
   return async (dispatch) => {
     const start = end - count;
 
     const {
-      data: { sub_block_records },
+      data: { block_records },
     } = await async_api(
       dispatch,
       fullNodeMessage({
-        command: 'get_sub_block_records',
+        command: 'get_block_records',
         data: {
           start,
           end,
@@ -44,15 +27,14 @@ export function getSubBlockRecords(end, count = 10) {
       false,
     );
 
-    return sub_block_records.reverse();
+    return block_records.reverse();
   };
 }
 
 export function updateLatestBlocks() {
   return async (dispatch, getState) => {
     const state = getState();
-    const height =
-      state.full_node_state.blockchain_state?.peak?.foliage_block?.height;
+    const height = state.full_node_state.blockchain_state?.peak?.height;
     if (height) {
       const blocks = await dispatch(getBlocksRecords(height));
 
@@ -88,23 +70,23 @@ export function getBlocksRecords(end, count = 10) {
 
 export function updateUnfinishedSubBlockHeaders() {
   return async (dispatch, getState) => {
-    const headers = await dispatch(getUnfinishedSubBlockHeaders());
+    const headers = await dispatch(getUnfinishedBlockHeaders());
 
     dispatch({
-      type: 'FULL_NODE_SET_UNFINISHED_SUB_BLOCK_HEADERS',
+      type: 'FULL_NODE_SET_UNFINISHED_BLOCK_HEADERS',
       headers,
     });
   };
 }
 
-export function getUnfinishedSubBlockHeaders() {
+export function getUnfinishedBlockHeaders() {
   return async (dispatch) => {
     const {
       data: { headers },
     } = await async_api(
       dispatch,
       fullNodeMessage({
-        command: 'get_unfinished_sub_block_headers',
+        command: 'get_unfinished_block_headers',
       }),
       false,
     );
@@ -112,26 +94,6 @@ export function getUnfinishedSubBlockHeaders() {
     return headers && headers.reverse();
   };
 }
-
-/*
-export function getSubBlockRecords(headerHash, count = 1) {
-  return async (dispatch) => {
-    const records = [];
-    let currentHash = headerHash;
-
-    for (let i = 0; i < count; i++) {
-      const subBlockRecord = await getSubBlockRecord(currentHash);
-
-      currentHash = subBlockRecord?.prev_hash;
-      if (!currentHash) {
-        break;
-      }
-    }
-
-    return records;
-  };
-}
-*/
 
 export const pingFullNode = () => {
   const action = fullNodeMessage();
@@ -147,6 +109,7 @@ export const getBlockChainState = () => {
   return action;
 };
 
+/*
 // @deprecated
 export const getLatestBlocks = () => {
   const action = fullNodeMessage();
@@ -154,6 +117,7 @@ export const getLatestBlocks = () => {
   action.message.data = {};
   return action;
 };
+*/
 
 export const getFullNodeConnections = () => {
   const action = fullNodeMessage();
@@ -176,16 +140,16 @@ export const closeConnection = (node_id) => {
   return action;
 };
 
-export const getSubBlockAction = (header_hash) => {
+export const getBlockAction = (header_hash) => {
   const action = fullNodeMessage();
-  action.message.command = 'get_sub_block';
+  action.message.command = 'get_block';
   action.message.data = { header_hash };
   return action;
 };
 
-export const getSubBlockRecordAction = (headerHash) => {
+export const getBlockRecordAction = (headerHash) => {
   const action = fullNodeMessage();
-  action.message.command = 'get_sub_block_record';
+  action.message.command = 'get_block_record';
   action.message.data = { header_hash: headerHash };
   return action;
 };
@@ -198,12 +162,12 @@ export const clearBlock = (header_hash) => {
   return action;
 };
 
-export function getSubBlock(headerHash) {
+export function getBlock(headerHash) {
   return async (dispatch) => {
     const response = await async_api(
       dispatch,
       fullNodeMessage({
-        command: 'get_sub_block',
+        command: 'get_block',
         data: {
           header_hash: headerHash,
         },
@@ -211,16 +175,16 @@ export function getSubBlock(headerHash) {
       false,
     );
 
-    return response?.data?.sub_block;
+    return response?.data?.block;
   };
 }
 
-export function getSubBlockRecord(headerHash) {
+export function getBlockRecord(headerHash) {
   return async (dispatch) => {
     const response = await async_api(
       dispatch,
       fullNodeMessage({
-        command: 'get_sub_block_record',
+        command: 'get_block_record',
         data: {
           header_hash: headerHash,
         },
@@ -228,6 +192,6 @@ export function getSubBlockRecord(headerHash) {
       false,
     );
 
-    return response?.data?.sub_block_record;
+    return response?.data?.block_record;
   };
 }

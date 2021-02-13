@@ -1,10 +1,8 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 import { useSelector } from 'react-redux';
-// import moment from 'moment';
 import {
   Typography,
-  Tooltip,
 } from '@material-ui/core';
 import { Link, Table, Card } from '@chia/core';
 import type { RootState } from '../../modules/rootReducer';
@@ -13,47 +11,16 @@ import type { Row } from '../core/components/Table/Table';
 const cols = [
   {
     minWidth: '200px',
-    field(row: Row) {
-      return (
-        <Tooltip title={row.challenge}>
-          <span>{row.signage_point.challenge_hash}</span>
-        </Tooltip>
-      );
-    },
+    tooltip: true,
+    field: 'signage_point.challenge_hash',
     title: (
-      <Trans id="FarmLatestBlockChallenges.challengeHash">Challenge Hash</Trans>
+      <Trans>Challenge Hash</Trans>
     ),
   },
   {
     field: (row: Row) => row.signage_point.signage_point_index,
-    title: <Trans id="FarmLatestBlockChallenges.index">Index</Trans>,
-  }, /*
-  {
-    width: '200px',
-    field(row: Row) {
-      if (row?.estimates?.length > 0) {
-        const seconds = Math.min(...row.estimates);
-        return moment.duration({ seconds }).humanize();
-      }
-
-      return null;
-    },
-    title: (
-      <Flex alignItems="center" gap={1}>
-        <span>
-          <Trans id="FarmLatestBlockChallenges.bestEstimate">
-            Best Estimate
-          </Trans>
-        </span>
-        <TooltipIcon>
-          <Trans id="FarmLatestBlockChallenges.bestEstimateTooltip">
-            Best Estimate is how many seconds of time must be proved for your
-            proofs.
-          </Trans>
-        </TooltipIcon>
-      </Flex>
-    ),
-  }, */
+    title: <Trans>Index</Trans>,
+  },
 ];
 
 export default function FarmLatestBlockChallenges() {
@@ -71,12 +38,12 @@ export default function FarmLatestBlockChallenges() {
   return (
     <Card
       title={(
-        <Trans id="FarmLatestBlockChallenges.title">
+        <Trans>
           Latest Block Challenges
         </Trans>
       )}
       tooltip={hasPlots ? (
-        <Trans id="FarmLatestBlockChallenges.description">
+        <Trans>
           Below are the current block challenges. You may or may not have
           a proof of space for these challenges. These blocks do not
           currently contain a proof of time.
@@ -85,7 +52,7 @@ export default function FarmLatestBlockChallenges() {
     >
       {!hasPlots && (
         <Typography variant="body2">
-          <Trans id="FarmLatestBlockChallenges.description">
+          <Trans>
             Below are the current block challenges. You may or may not have a
             proof of space for these challenges. These blocks do not currently
             contain a proof of time.
@@ -100,7 +67,7 @@ export default function FarmLatestBlockChallenges() {
         pages
       />
       <Typography variant="caption">
-        <Trans id="FarmLatestBlockChallenges.subDescription">
+        <Trans>
           *Want to explore Chia’s blocks further? Check out{' '}
           <Link
             color="primary"
