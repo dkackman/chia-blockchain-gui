@@ -65,13 +65,11 @@ if (!setupEvents.handleSquirrelEvent()) {
   let mainWindow = null;
   let decidedToClose = false;
 
-  const appReady = async () => {
+  app.on("ready", async () => {
     app.applicationMenu = createMenu();
     createPyProc();
     createWindow();
-  };
-
-  app.on("ready", appReady);
+  });
 
   app.on("window-all-closed", () => {
     app.quit();
