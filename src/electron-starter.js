@@ -23,9 +23,23 @@ if (!setupEvents.handleSquirrelEvent()) {
   const os = require("os");
   const crypto = require("crypto");
 
-  // this needs to happen early in startup so all processes share the same global config
-  chiaConfig.loadConfig();
-  global.sharedObj = { local_test: local_test };
+  const ensureSingleInstance = () => {
+    const gotTheLock = app.requestSingleInstanceLock();
+
+    if (!gotTheLock) {
+      app.quit();
+    } else {
+      app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (mainWindow) {
+          if (mainWindow.isMinimized()) {
+            mainWindow.restore();
+          }
+          mainWindow.focus();
+        }
+      });
+    }
+  };
 
   /*************************************************************
    * py process
@@ -40,6 +54,51 @@ if (!setupEvents.handleSquirrelEvent()) {
   let pyProc = null;
   let ws = null;
   let have_cert = null;
+  
+  ensureSingleInstance();
+
+  // this needs to happen early in startup so all processes share the same global config
+  chiaConfig.loadConfig();
+  global.sharedObj = { local_test: local_test };
+
+  const exitPyProc = e => {};
+
+  app.on("will-quit", exitPyProc);
+
+  /*************************************************************
+   * window management
+   *************************************************************/
+
+  let mainWindow = null;
+  let decidedToClose = false;
+
+  const appReady = async () => {
+    app.applicationMenu = createMenu();
+    createPyProc();
+    createWindow();
+  };
+
+  app.on("ready", appReady);
+
+  app.on("window-all-closed", () => {
+    app.quit();
+  });
+
+  app.on("activate", () => {
+    if (mainWindow === null) {
+      createWindow();
+    }
+  });
+
+  ipcMain.on("load-page", (event, arg) => {
+    mainWindow.loadURL(
+      require("url").format({
+        pathname: path.join(__dirname, arg.file),
+        protocol: "file:",
+        slashes: true
+      }) + arg.query
+    );
+  });
 
   const guessPackaged = () => {
     let packed;
@@ -140,37 +199,6 @@ if (!setupEvents.handleSquirrelEvent()) {
     //pyProc.unref();
   };
   
-  const ensureSingleInstance = () => {
-    const gotTheLock = app.requestSingleInstanceLock();
-
-    if (!gotTheLock) {
-      app.quit();
-    } else {
-      app.on('second-instance', (event, commandLine, workingDirectory) => {
-        // Someone tried to run a second instance, we should focus our window.
-        if (mainWindow) {
-          if (mainWindow.isMinimized()) {
-            mainWindow.restore();
-          }
-          mainWindow.focus();
-        }
-      });
-    }
-  };
-  
-  ensureSingleInstance();
-  
-  const exitPyProc = e => {};
-
-  app.on("will-quit", exitPyProc);
-
-  /*************************************************************
-   * window management
-   *************************************************************/
-
-  let mainWindow = null;
-  let decidedToClose = false;
-
   const createWindow = () => {
     decidedToClose = false;
     mainWindow = new BrowserWindow({
@@ -250,35 +278,7 @@ if (!setupEvents.handleSquirrelEvent()) {
     return menu;
   };
 
-  const appReady = async () => {
-    app.applicationMenu = createMenu();
-    createPyProc();
-    createWindow();
-  };
-
-  app.on("ready", appReady);
-
-  app.on("window-all-closed", () => {
-    app.quit();
-  });
-
-  app.on("activate", () => {
-    if (mainWindow === null) {
-      createWindow();
-    }
-  });
-
-  ipcMain.on("load-page", (event, arg) => {
-    mainWindow.loadURL(
-      require("url").format({
-        pathname: path.join(__dirname, arg.file),
-        protocol: "file:",
-        slashes: true
-      }) + arg.query
-    );
-  });
-
-  function getMenuTemplate() {
+  const getMenuTemplate = () => {
     const template = [
       {
         label: "File",
@@ -561,7 +561,7 @@ if (!setupEvents.handleSquirrelEvent()) {
   /**
    * Open the given external protocol URL in the desktop’s default manner.
    */
-  function openExternal(url) {
+  const openExternal= (url) => {
     // console.log(`openExternal: ${url}`)
     shell.openExternal(url);
   }
