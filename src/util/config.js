@@ -10,6 +10,7 @@ global.cert_path = 'config/ssl/daemon/private_daemon.crt';
 global.key_path = 'config/ssl/daemon/private_daemon.key';
 
 function loadConfig(version) {
+  console.log("version is " + version);
   try {
     // finding the right config file uses this precedence
     // 1) CHIA_ROOT environment variable
@@ -41,6 +42,7 @@ function loadConfig(version) {
     ); // jshint ignore:line
   } catch (e) {
     console.log('Error loading config - using defaults');
+    console.log(e);
   }
 }
 
