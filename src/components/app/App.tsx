@@ -56,7 +56,7 @@ export default function App() {
     const electron = window.require('electron');
     const { remote : r } = electron;
     daemon_uri = r.getGlobal('daemon_rpc_ws');
-    console.log("app() daemon_uri=" + daemon_uri);
+    console.log(daemon_uri);
   }
 
   useEffect(() => {
