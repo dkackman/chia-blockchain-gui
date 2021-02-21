@@ -40,8 +40,6 @@ if (!setupEvents.handleSquirrelEvent()) {
   
   ensureSingleInstance();
 
-  // this needs to happen early in startup so all processes share the same global config
-  chiaConfig.loadConfig(chiaEnvironment.getChiaVersion());
   global.sharedObj = { local_test: local_test };
 
   const exitPyProc = e => {};
@@ -106,7 +104,7 @@ if (!setupEvents.handleSquirrelEvent()) {
     // }
     mainWindow.on("close", e => {
       // if the daemon isn't local we aren't going to try to start/stop it
-      if (decidedToClose || !chiaConfig.manageDaemonLifetime()) {
+      if (decidedToClose) {
         return;
       }
       e.preventDefault();
@@ -115,7 +113,7 @@ if (!setupEvents.handleSquirrelEvent()) {
         buttons: ["No", "Yes"],
         title: "Confirm",
         message:
-          "Are you sure you want to quit? GUI Plotting and farming will stop."
+          "Are you sure you want to quit? Local GUI Plotting and farming will stop."
       });
       if (choice == 0) {
         return;
@@ -136,10 +134,8 @@ if (!setupEvents.handleSquirrelEvent()) {
 
   const appReady = async () => {
     app.applicationMenu = createMenu();
-    // if the daemon isn't local we aren't going to try to start/stop it
-    if (chiaConfig.manageDaemonLifetime()) {
-      chiaEnvironment.startChiaDaemon();
-    }
+    chiaEnvironment.startChiaDaemon();    
+    chiaConfig.loadConfig(chiaEnvironment.getChiaVersion());
     createWindow();
   };
 
