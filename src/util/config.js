@@ -15,15 +15,19 @@ function loadConfig(version) {
     // 1) CHIA_ROOT environment variable
     // 2) version passed in and determined by the `chia version` call
 
+    console.log("loadConfig=" + version);
     // check if CHIA_ROOT is set. it overrides everything else
     const config_root_dir =
       'CHIA_ROOT' in process.env
         ? process.env.CHIA_ROOT
         : path.join(os.homedir(), '.chia', version);
+    
+    console.log("loadConfig::config_root_dir=" + config_root_dir);
     const config = yaml.load(
       fs.readFileSync(path.join(config_root_dir, 'config/config.yaml'), 'utf8'),
     );
 
+    console.log("loadConfig:self_hostname=" + self_hostname);
     self_hostname = config?.ui?.daemon_host ?? 'localhost'; // jshint ignore:line
     const daemon_port = config?.ui?.daemon_port ?? 55400; // jshint ignore:line
 
@@ -40,7 +44,8 @@ function loadConfig(version) {
         'config/ssl/daemon/private_daemon.key',
     ); // jshint ignore:line
   } catch (e) {
-    console.log('Error loading config - using defaults');
+    console.log('loadConfig::Error loading config - using defaults');
+    console.log(e);
   }
 }
 

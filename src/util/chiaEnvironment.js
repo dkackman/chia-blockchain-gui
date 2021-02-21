@@ -48,6 +48,7 @@ const getExecutablePath = (dist_file) => {
 const getChiaVersion = () => {
   let version = null;
   const exePath = getExecutablePath('chia');
+  console.log("getChiaVersion looking for " + exePath);
   // first see if we can get a chia exe in a standard location relative to where we are
   try {
     version = child_process.execFileSync(exePath, ['version'], {
@@ -66,6 +67,7 @@ const getChiaVersion = () => {
     }
   }
 
+  console.log("getChiaVersion version is " + version);
   return version;
 };
 
