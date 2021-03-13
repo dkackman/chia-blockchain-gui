@@ -34,8 +34,8 @@ msgstr ""
 msgid "A harvester is a service running on a machine where plot(s) are actually stored. A farmer and harvester talk to a full node to see the state of the chain. View your network of connected harvesters below Learn more"
 msgstr ""
 
-#: src/electron-starter.js:353
-#: src/electron-starter.js:446
+#: src/electron-starter.js:362
+#: src/electron-starter.js:455
 msgid "About Chia Blockchain"
 msgstr ""
 
@@ -47,9 +47,9 @@ msgstr "Akceptovať"
 msgid "Accepted at time:"
 msgstr "Akceptované o:"
 
-#: src/components/plot/overview/PlotOverviewPlots.tsx:75
 #: src/components/plot/PlotsFailed.tsx:14
 #: src/components/plot/PlotsNotFound.tsx:14
+#: src/components/plot/overview/PlotOverviewPlots.tsx:75
 msgid "Action"
 msgstr "Akcia"
 
@@ -72,9 +72,9 @@ msgid "Add Wallet"
 msgstr "Pridať peňaženku"
 
 #: src/components/farm/overview/FarmOverviewHero.tsx:35
+#: src/components/plot/PlotHeader.tsx:33
 #: src/components/plot/add/PlotAdd.tsx:54
 #: src/components/plot/overview/PlotOverviewHero.tsx:29
-#: src/components/plot/PlotHeader.tsx:33
 msgid "Add a Plot"
 msgstr "Pridať pole"
 
@@ -99,10 +99,10 @@ msgstr "Adresa"
 
 #: src/components/trading/CreateOffer.jsx:213
 #: src/components/trading/TradesTable.tsx:16
+#: src/components/wallet/WalletHistory.tsx:48
 #: src/components/wallet/create/createNewColouredCoin.jsx:125
 #: src/components/wallet/rateLimited/WalletRateLimited.jsx:770
 #: src/components/wallet/standard/WalletStandard.tsx:331
-#: src/components/wallet/WalletHistory.tsx:48
 msgid "Amount"
 msgstr "Suma"
 
@@ -123,7 +123,7 @@ msgstr "Naozaj chcete odstrániť pole? Pole nie je možné obnoviť."
 msgid "Are you sure you want to disconnect?"
 msgstr ""
 
-#: src/electron-starter.js:125
+#: src/electron-starter.js:134
 msgid "Are you sure you want to quit? GUI Plotting and farming will stop."
 msgstr ""
 
@@ -251,15 +251,15 @@ msgstr ""
 msgid "Challenge Hash"
 msgstr "Hash výzvy"
 
-#: src/electron-starter.js:332
+#: src/electron-starter.js:341
 msgid "Chat on KeyBase"
 msgstr ""
 
-#: src/electron-starter.js:350
+#: src/electron-starter.js:359
 msgid "Chia"
 msgstr ""
 
-#: src/electron-starter.js:289
+#: src/electron-starter.js:298
 msgid "Chia Blockchain Wiki"
 msgstr ""
 
@@ -313,7 +313,7 @@ msgstr ""
 msgid "Coloured Coin Options"
 msgstr ""
 
-#: src/electron-starter.js:123
+#: src/electron-starter.js:132
 msgid "Confirm"
 msgstr ""
 
@@ -364,7 +364,7 @@ msgstr "Typ pripojenia"
 msgid "Connections"
 msgstr "Pripojenia"
 
-#: src/electron-starter.js:313
+#: src/electron-starter.js:322
 msgid "Contribute on GitHub"
 msgstr ""
 
@@ -523,11 +523,11 @@ msgstr "Po stlačení tlačidla zmazať odstránite natrvalo všetký kľúče z
 msgid "Deleting the key will permanently remove the key from your computer, make sure you have backups. Are you sure you want to continue?"
 msgstr "Odstránením kľúča natrvalo odstránite kľúč z počítača. Uistite sa, že máte zálohy. Ste si istý, že chcete pokračovať?"
 
-#: src/electron-starter.js:235
+#: src/electron-starter.js:244
 msgid "Developer"
 msgstr ""
 
-#: src/electron-starter.js:238
+#: src/electron-starter.js:247
 msgid "Developer Tools"
 msgstr ""
 
@@ -566,7 +566,7 @@ msgstr "Súbor s ponukami presuňte tu"
 msgid "Drag and drop your backup file"
 msgstr ""
 
-#: src/electron-starter.js:194
+#: src/electron-starter.js:203
 msgid "Edit"
 msgstr ""
 
@@ -574,10 +574,10 @@ msgstr ""
 msgid "Enter the 24 word mnemonic that you have saved in order to restore your Chia wallet."
 msgstr ""
 
-#: src/components/farm/card/FarmCardStatus.tsx:20
-#: src/components/farm/card/FarmCardStatus.tsx:25
 #: src/components/farm/FarmerStatus.tsx:30
 #: src/components/farm/FarmerStatus.tsx:31
+#: src/components/farm/card/FarmCardStatus.tsx:20
+#: src/components/farm/card/FarmCardStatus.tsx:25
 #: src/components/plot/PlotStatus.tsx:17
 #: src/components/plot/PlotStatus.tsx:18
 #: src/components/plot/queue/PlotQueueIndicator.tsx:14
@@ -633,9 +633,9 @@ msgstr ""
 msgid "Farmers earn block rewards and transaction fees by committing spare space to the network to help secure transactions. This is where your farm will be once you add a plot. <0>Learn more</0>"
 msgstr ""
 
-#: src/components/farm/card/FarmCardStatus.tsx:29
 #: src/components/farm/Farm.tsx:15
 #: src/components/farm/FarmerStatus.tsx:27
+#: src/components/farm/card/FarmCardStatus.tsx:29
 #: src/components/plot/PlotStatus.tsx:14
 msgid "Farming"
 msgstr "Ťažba"
@@ -648,13 +648,13 @@ msgstr "Ťažba"
 msgid "Farming Status"
 msgstr "Stav ťažby"
 
+#: src/components/wallet/WalletHistory.tsx:52
 #: src/components/wallet/create/createExistingColouredCoin.jsx:131
 #: src/components/wallet/create/createNewColouredCoin.jsx:138
 #: src/components/wallet/create/createRLAdmin.jsx:266
 #: src/components/wallet/create/createRLAdmin.jsx:298
 #: src/components/wallet/rateLimited/WalletRateLimited.jsx:783
 #: src/components/wallet/standard/WalletStandard.tsx:336
-#: src/components/wallet/WalletHistory.tsx:52
 msgid "Fee"
 msgstr "Poplatok"
 
@@ -678,14 +678,14 @@ msgstr "Množstvo odmeny"
 #~ msgid "Fees Puzzle Hash"
 #~ msgstr ""
 
-#: src/electron-starter.js:186
-#: src/electron-starter.js:393
+#: src/electron-starter.js:195
+#: src/electron-starter.js:402
 msgid "File"
 msgstr ""
 
-#: src/components/plot/overview/PlotOverviewPlots.tsx:67
 #: src/components/plot/PlotsFailed.tsx:10
 #: src/components/plot/PlotsNotFound.tsx:10
+#: src/components/plot/overview/PlotOverviewPlots.tsx:67
 msgid "Filename"
 msgstr ""
 
@@ -698,11 +698,11 @@ msgstr "Cieľový adresár"
 msgid "Finished"
 msgstr "Dokončené"
 
-#: src/electron-starter.js:338
+#: src/electron-starter.js:347
 msgid "Follow on Twitter"
 msgstr ""
 
-#: src/electron-starter.js:297
+#: src/electron-starter.js:306
 msgid "Frequently Asked Questions"
 msgstr ""
 
@@ -715,7 +715,7 @@ msgstr "Domov"
 msgid "Full Node Status"
 msgstr "Stav siete"
 
-#: src/electron-starter.js:263
+#: src/electron-starter.js:272
 msgid "Full Screen"
 msgstr ""
 
@@ -741,7 +741,7 @@ msgstr "Poradie hlavičky"
 msgid "Height"
 msgstr "Poradie"
 
-#: src/electron-starter.js:285
+#: src/electron-starter.js:294
 msgid "Help"
 msgstr ""
 
@@ -949,7 +949,7 @@ msgid "Nickname"
 msgstr "Prezývka"
 
 #: src/components/trading/TradingOverview.jsx:212
-#: src/electron-starter.js:122
+#: src/electron-starter.js:131
 msgid "No"
 msgstr "Nie"
 
@@ -979,9 +979,9 @@ msgstr "Id uzla"
 msgid "None of your plots have passed the plot filter yet."
 msgstr ""
 
+#: src/components/farm/FarmerStatus.tsx:29
 #: src/components/farm/card/FarmCardNotAvailable.tsx:8
 #: src/components/farm/card/FarmCardNotAvailable.tsx:9
-#: src/components/farm/FarmerStatus.tsx:29
 #: src/components/plot/PlotStatus.tsx:16
 msgid "Not Available"
 msgstr "Nie je k dispozícií"
@@ -1318,7 +1318,7 @@ msgstr ""
 msgid "Refresh Plots"
 msgstr "Obnoviť polia"
 
-#: src/electron-starter.js:305
+#: src/electron-starter.js:314
 msgid "Release Notes"
 msgstr ""
 
@@ -1326,7 +1326,7 @@ msgstr ""
 msgid "Rename"
 msgstr "Premenovať"
 
-#: src/electron-starter.js:324
+#: src/electron-starter.js:333
 msgid "Report an Issue..."
 msgstr ""
 
@@ -1451,7 +1451,7 @@ msgstr "Prihlásiť sa"
 #~ msgid "Skip"
 #~ msgstr "Preskočiť"
 
-#: src/electron-starter.js:407
+#: src/electron-starter.js:416
 msgid "Speech"
 msgstr ""
 
@@ -1495,8 +1495,8 @@ msgstr ""
 #: src/components/plot/overview/PlotOverviewPlots.tsx:71
 #: src/components/trading/TradingOverview.jsx:128
 #: src/components/wallet/WalletHistory.tsx:42
-#: src/components/wallet/Wallets.tsx:94
 #: src/components/wallet/WalletStatusCard.tsx:12
+#: src/components/wallet/Wallets.tsx:94
 msgid "Status"
 msgstr "Stav"
 
@@ -1540,8 +1540,8 @@ msgstr "Odoslať"
 msgid "Synced"
 msgstr "Synchronizované"
 
-#: src/components/farm/card/FarmCardStatus.tsx:12
 #: src/components/farm/FarmerStatus.tsx:28
+#: src/components/farm/card/FarmCardStatus.tsx:12
 #: src/components/plot/PlotStatus.tsx:15
 msgid "Syncing"
 msgstr "Synchronizácia"
@@ -1776,7 +1776,7 @@ msgstr "Používateľov verejný kľúč"
 msgid "VDF Sub Slot Iterations"
 msgstr ""
 
-#: src/electron-starter.js:226
+#: src/electron-starter.js:235
 msgid "View"
 msgstr ""
 
@@ -1878,7 +1878,7 @@ msgstr "Vitajte! Pre zálohovanie vašej peňaženky sa používajú nasledujúc
 msgid "When you receive the setup info packet from your admin, enter it below to complete your Rate Limited Wallet setup:"
 msgstr ""
 
-#: src/electron-starter.js:271
+#: src/electron-starter.js:280
 msgid "Window"
 msgstr ""
 
@@ -1888,7 +1888,7 @@ msgstr ""
 
 #: src/components/plot/add/PlotAddChooseSize.tsx:30
 #: src/components/trading/TradingOverview.jsx:212
-#: src/electron-starter.js:122
+#: src/electron-starter.js:131
 msgid "Yes"
 msgstr "Áno"
 
@@ -1912,13 +1912,13 @@ msgstr "Vaše pripojenie k sieti"
 msgid "Your Harvester Network"
 msgstr ""
 
-#: src/components/wallet/Wallets.tsx:122
 #: src/components/wallet/WalletStatusCard.tsx:31
+#: src/components/wallet/Wallets.tsx:122
 msgid "connections:"
 msgstr "pripojenia:"
 
-#: src/components/wallet/Wallets.tsx:116
 #: src/components/wallet/WalletStatusCard.tsx:25
+#: src/components/wallet/Wallets.tsx:116
 msgid "height:"
 msgstr "pozícia:"
 
@@ -1926,18 +1926,18 @@ msgstr "pozícia:"
 msgid "not synced"
 msgstr ""
 
-#: src/components/wallet/Wallets.tsx:99
 #: src/components/wallet/WalletStatusCard.tsx:17
+#: src/components/wallet/Wallets.tsx:99
 msgid "status:"
 msgstr ""
 
-#: src/components/wallet/Wallets.tsx:108
 #: src/components/wallet/WalletStatusCard.tsx:20
+#: src/components/wallet/Wallets.tsx:108
 msgid "synced"
 msgstr ""
 
-#: src/components/wallet/Wallets.tsx:106
 #: src/components/wallet/WalletStatusCard.tsx:20
+#: src/components/wallet/Wallets.tsx:106
 msgid "syncing"
 msgstr ""
 
